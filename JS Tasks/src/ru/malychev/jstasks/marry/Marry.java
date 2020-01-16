@@ -1,4 +1,4 @@
-package ru.malychev.jstask.marry;
+package ru.malychev.jstasks.marry;
 
 public class Marry {
     public static void main(String[] args) {

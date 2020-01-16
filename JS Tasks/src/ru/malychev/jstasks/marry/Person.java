@@ -1,4 +1,4 @@
-package ru.malychev.jstask.marry;
+package ru.malychev.jstasks.marry;
 
 public class Person {
     private final boolean man;
