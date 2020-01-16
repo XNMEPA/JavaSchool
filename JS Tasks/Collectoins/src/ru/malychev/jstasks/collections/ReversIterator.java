@@ -1,4 +1,4 @@
-package ru.malychev.jstasks;
+package ru.malychev.jstasks.collections;
 
 import java.util.Iterator;
 import java.util.List;
