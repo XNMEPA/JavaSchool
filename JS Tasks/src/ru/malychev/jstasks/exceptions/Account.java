@@ -1,24 +1,24 @@
 package ru.malychev.jstasks.exceptions;
 
-import ru.malychev.jstasks.exceptions.bankexceptions.IncorrectPINException;
+import ru.malychev.jstasks.exceptions.bankexceptions.InsufficientFundsException;
 
-public class Account {
-    private final String nameOwner;
+public class Account<T> {
+    private String nameOwner;
     private double account;
-    private int pin;
+    private PIN<T> pin;
 
-    public Account(String owner, double sum, int pin) {
+    public Account(String owner, double sum, PIN<T> pin) {
         this.nameOwner = owner;
         this.account = sum;
         this.pin = pin;
     }
 
-//    public boolean checkPIN
-    public void setPIN(int oldPIN, int newPIN) throws IncorrectPINException {
-        if (oldPIN == this.pin) {
-            this.pin = newPIN;
-        }
-        throw new IncorrectPINException(3);
+    public void setPIN(PIN<T> pin) {
+            this.pin = pin;
+    }
+
+    public PIN<T> getPIN() {
+        return this.pin;
     }
 
     public void setAccount(double sum) {
@@ -32,7 +32,9 @@ public class Account {
     public void putAccount(double sum) {
         this.account += sum;
     }
-    public double takeAccount(double sum) {
+
+    public double takeAccount(double sum) throws InsufficientFundsException {
+        if (sum > this.account) throw new InsufficientFundsException();
         return (this.account -= sum);
     }
 }
