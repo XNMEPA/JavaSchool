@@ -1,18 +1,26 @@
 package ru.malychev.jstasks.exceptions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import ru.malychev.jstasks.exceptions.bankexceptions.AccountNotFoundException;
+import ru.malychev.jstasks.exceptions.bankexceptions.InsufficientFundsException;
 
-public class TerminalServer {
+public class TerminalServer<T> {
 
-    private Map<Integer, Integer> accounts;
-    private List<Account<Integer>> clients;
+    private ClientDB<T> clients;
 
-    TerminalServer() {
-        this.accounts = new HashMap<>();
-        this.clients = new ArrayList<>();
+    TerminalServer(ClientDB<T> clients) {
+        this.clients = clients;
+    }
+
+    PIN<T> getPINClient(int account) throws AccountNotFoundException {
+        return clients.getPINClient(account);
+    }
+
+    void allowMoney(int sum, int account) throws InsufficientFundsException {
+        clients.getAccountClient(account).takeBalance(sum);
+    }
+
+    void putMoney(int sum, int account) {
+        clients.getAccountClient(account).putBalance(sum);
     }
 
 }

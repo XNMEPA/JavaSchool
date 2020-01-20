@@ -4,37 +4,38 @@ import ru.malychev.jstasks.exceptions.bankexceptions.InsufficientFundsException;
 
 public class Account<T> {
     private String nameOwner;
-    private double account;
+    private double balance;
     private PIN<T> pin;
 
-    public Account(String owner, double sum, PIN<T> pin) {
+    Account(String owner, double sum, PIN<T> pin) {
         this.nameOwner = owner;
-        this.account = sum;
+        this.balance = sum;
         this.pin = pin;
     }
 
-    public void setPIN(PIN<T> pin) {
+    void setPIN(PIN<T> pin) {
             this.pin = pin;
     }
 
-    public PIN<T> getPIN() {
+    PIN<T> getPIN() {
         return this.pin;
     }
 
-    public void setAccount(double sum) {
-        this.account = sum;
+    void setBalance(double sum) {
+        this.balance = sum;
     }
 
-    public double getAccount() {
-        return this.account;
+    double getBalance() {
+        return this.balance;
     }
 
-    public void putAccount(double sum) {
-        this.account += sum;
+    void putBalance(double sum) {
+        this.balance += sum;
     }
 
-    public double takeAccount(double sum) throws InsufficientFundsException {
-        if (sum > this.account) throw new InsufficientFundsException();
-        return (this.account -= sum);
+    boolean takeBalance(double sum) throws InsufficientFundsException {
+        if (sum > this.balance) throw new InsufficientFundsException();
+        this.balance -= sum;
+        return true;
     }
 }
