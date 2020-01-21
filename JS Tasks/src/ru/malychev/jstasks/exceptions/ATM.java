@@ -17,14 +17,18 @@ public class ATM<T> implements Terminal<T> {
     public void checkClient(int account, PIN<T> pin) {
         try {
             Date currentTime = new Date();
-            validator.checkPIN(account, pin, server);
-            try {
-                if (validator.getEndTimeLock().after(currentTime))
-                    throw new AccountIsLockedException((validator.getEndTimeLock().getTime() - currentTime.getTime()) / 1000);
-            } catch (AccountIsLockedException e) {
-                System.out.println("\n=================================================================");
-                System.out.println(e);
-                System.out.println("=================================================================");
+            if (validator.checkPIN(account, pin, server)) {
+                System.out.println("Клиент авторизован.");
+
+            } else {
+                try {
+                    if (validator.getEndTimeLock().after(currentTime))
+                        throw new AccountIsLockedException((validator.getEndTimeLock().getTime() - currentTime.getTime()) / 1000);
+                } catch (AccountIsLockedException e) {
+                    System.out.println("\n=================================================================");
+                    System.out.println(e);
+                    System.out.println("=================================================================");
+                }
             }
         } catch (AccountNotFoundException e) {
             System.out.println(e);

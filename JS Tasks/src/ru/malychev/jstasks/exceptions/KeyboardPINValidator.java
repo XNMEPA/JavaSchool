@@ -12,16 +12,18 @@ public class KeyboardPINValidator extends PINValidator<Integer> {
     private static Date endTimeLock = new Date(0);
     private final int timeLock = 10000;
 
-    void checkPIN(int account, PIN<Integer> pin, TerminalServer<Integer> server)  throws AccountNotFoundException, IncorrectPINException {
+    boolean checkPIN(int account, PIN<Integer> pin, TerminalServer<Integer> server)  throws AccountNotFoundException, IncorrectPINException {
         countEnterPIN++;
         boolean correctPIN = server.getPINClient(account).equals(pin);
         if (correctPIN) {
             countEnterPIN = 0;
+            return true;
         } else if (countEnterPIN < maxQuantityEnterPIN){
             throw new IncorrectPINException(maxQuantityEnterPIN - countEnterPIN);
         } else {
             endTimeLock.setTime(new Date().getTime() + timeLock);
             countEnterPIN = 0;
+            return false;
         }
     }
 

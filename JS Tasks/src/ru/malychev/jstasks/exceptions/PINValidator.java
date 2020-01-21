@@ -6,6 +6,6 @@ import ru.malychev.jstasks.exceptions.bankexceptions.IncorrectPINException;
 import java.util.Date;
 
 public abstract class PINValidator<T> {
-    abstract void checkPIN(int account, PIN<T> pin, TerminalServer<T> server) throws AccountNotFoundException, IncorrectPINException;
+    abstract boolean checkPIN(int account, PIN<T> pin, TerminalServer<T> server) throws AccountNotFoundException, IncorrectPINException;
     abstract Date getEndTimeLock();
 }

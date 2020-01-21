@@ -30,7 +30,6 @@ public class Main {
                 String pinStr = reader.readLine();
                 Integer pin = pinStr.isEmpty() ? 0 : Integer.parseInt(pinStr);
                 bankomat.checkClient(account, new NumberPIN(pin));
-                System.out.println("Клиент авторизован.");
             } catch (IOException e) {
                 System.out.println("\n=================================================================");
                 System.out.println("Банкомат неисправен.\nВам следует обратиться к другому Банкомату.");
