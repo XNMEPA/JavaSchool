@@ -1,9 +1,8 @@
 package ru.malychev.jstasks.exceptions;
 
-import ru.malychev.jstasks.exceptions.bankexceptions.AccountNotFoundException;
-import ru.malychev.jstasks.exceptions.bankexceptions.IncorrectAmountException;
-import ru.malychev.jstasks.exceptions.bankexceptions.IncorrectPINException;
-import ru.malychev.jstasks.exceptions.bankexceptions.InsufficientFundsException;
+import ru.malychev.jstasks.exceptions.bankexceptions.*;
+
+import java.util.Date;
 
 public class ATM<T> implements Terminal<T> {
 
@@ -15,8 +14,29 @@ public class ATM<T> implements Terminal<T> {
         this.server = server;
     }
 
-    public boolean checkClient(int account, PIN<T> pin) throws AccountNotFoundException, IncorrectPINException {
-        return validator.checkPIN(account, pin, server);
+    public void checkClient(int account, PIN<T> pin) {
+        try {
+            Date currentTime = new Date();
+            validator.checkPIN(account, pin, server);
+            try {
+                if (validator.getEndTimeLock().after(currentTime))
+                    throw new AccountIsLockedException((validator.getEndTimeLock().getTime() - currentTime.getTime()) / 1000);
+            } catch (AccountIsLockedException e) {
+                System.out.println("\n=================================================================");
+                System.out.println(e);
+                System.out.println("=================================================================");
+            }
+        } catch (AccountNotFoundException e) {
+            System.out.println(e);
+            System.out.println("\n=================================================================");
+            System.out.println("Возможно счет введен с ошибкой.\nВвод счета можно повторить.");
+            System.out.println("=================================================================");
+        } catch (IncorrectPINException e) {
+            System.out.println(e);
+            System.out.println("\n=================================================================");
+            System.out.println("Введен некорректный PIN-код.");
+            System.out.println("=================================================================");
+        }
     }
 
     public void takeMoney(int sum, int account) throws InsufficientFundsException, IncorrectAmountException {

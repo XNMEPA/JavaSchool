@@ -3,24 +3,29 @@ package ru.malychev.jstasks.exceptions;
 import ru.malychev.jstasks.exceptions.bankexceptions.AccountNotFoundException;
 import ru.malychev.jstasks.exceptions.bankexceptions.IncorrectPINException;
 
+import java.util.Date;
+
 public class KeyboardPINValidator extends PINValidator<Integer> {
 
     private static int countEnterPIN = 0;
     private final int maxQuantityEnterPIN = 3;
+    private static Date endTimeLock = new Date(0);
+    private final int timeLock = 10000;
 
-    boolean checkPIN(int account, PIN<Integer> pin, TerminalServer<Integer> server)  throws AccountNotFoundException, IncorrectPINException {
+    void checkPIN(int account, PIN<Integer> pin, TerminalServer<Integer> server)  throws AccountNotFoundException, IncorrectPINException {
         countEnterPIN++;
         boolean correctPIN = server.getPINClient(account).equals(pin);
         if (correctPIN) {
             countEnterPIN = 0;
-            return true;
-        } else {
-            countEnterPIN++;
+        } else if (countEnterPIN < maxQuantityEnterPIN){
             throw new IncorrectPINException(maxQuantityEnterPIN - countEnterPIN);
+        } else {
+            endTimeLock.setTime(new Date().getTime() + timeLock);
+            countEnterPIN = 0;
         }
     }
 
-    int getCountEnterPIN() {
-        return countEnterPIN;
+    Date getEndTimeLock() {
+        return endTimeLock;
     }
 }

@@ -5,4 +5,7 @@ public abstract class PIN<T> {
     PIN(T pin) {
         this.pin = pin;
     }
+
+    public abstract boolean equals(PIN<T> pin);
+    public abstract  T getPIN();
 }
