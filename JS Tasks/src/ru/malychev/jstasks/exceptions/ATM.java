@@ -14,33 +14,25 @@ public class ATM<T> implements Terminal<T> {
         this.server = server;
     }
 
-    public void checkClient(int account, PIN<T> pin) {
+    public boolean checkClient(int account, PIN<T> pin) {
         try {
             Date currentTime = new Date();
-            if (validator.checkPIN(account, pin, server)) {
+            if (validator.getEndTimeLock().after(currentTime))
+                throw new AccountIsLockedException((validator.getEndTimeLock().getTime() - currentTime.getTime()) / 1000);
+            else if (validator.checkPIN(account, pin, server)) {
                 System.out.println("Клиент авторизован.");
-
-            } else {
-                try {
-                    if (validator.getEndTimeLock().after(currentTime))
-                        throw new AccountIsLockedException((validator.getEndTimeLock().getTime() - currentTime.getTime()) / 1000);
-                } catch (AccountIsLockedException e) {
-                    System.out.println("\n=================================================================");
-                    System.out.println(e);
-                    System.out.println("=================================================================");
-                }
+                return true;
             }
         } catch (AccountNotFoundException e) {
-            System.out.println(e);
-            System.out.println("\n=================================================================");
             System.out.println("Возможно счет введен с ошибкой.\nВвод счета можно повторить.");
             System.out.println("=================================================================");
         } catch (IncorrectPINException e) {
-            System.out.println(e);
-            System.out.println("\n=================================================================");
-            System.out.println("Введен некорректный PIN-код.");
+            System.out.println("Повторите ввод авторизационных данных.");
+            System.out.println("=================================================================");
+        } catch (AccountIsLockedException e) {
             System.out.println("=================================================================");
         }
+        return false;
     }
 
     public void takeMoney(int sum, int account) throws InsufficientFundsException, IncorrectAmountException {
