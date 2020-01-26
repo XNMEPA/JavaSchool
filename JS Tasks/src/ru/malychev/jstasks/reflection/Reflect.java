@@ -3,16 +3,44 @@ package ru.malychev.jstasks.reflection;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
+import java.util.Arrays;
 
 public class Reflect {
-
+//===========================================
+    public static final String HELLO = "Hello";
+//===========================================
     public static void main(String[] args) {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("Разбор полей строковой константы: \"Hello\".");
+        Class<?> sameClass = HELLO.getClass();
+        Class<?> superClassString = sameClass.getSuperclass();
+        String modifiersClassString = Modifier.toString(sameClass.getModifiers());
+        System.out.println("==============================================================");
+        if (!modifiersClassString.isEmpty()) System.out.print(modifiersClassString + " ");
+        System.out.print("class " + sameClass.getName());
+        if (superClassString != null)
+            System.out.print(" extends " + superClassString.getName());
+        System.out.println(" {");
+        try {
+            Field[] fields = sameClass.getDeclaredFields();
+            System.out.println("\nПоля класса:");
+            for (Field field : fields) System.out.println("Имя поля: " + field.getName());
+
+            Field field = sameClass.getDeclaredField("value");
+            field.setAccessible(true);
+            System.out.print("  ");
+            String modifiers = Modifier.toString(field.getModifiers());
+            if (!modifiers.isEmpty()) System.out.print(modifiers + " ");
+            Object fieldValue = field.get(HELLO);
+            System.out.print("value = ");
+            System.out.println(Arrays.toString((char[]) fieldValue));
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        System.out.println("}");
 
         while (true) {
             System.out.print("Введите полное имя класса,\n" +
@@ -40,6 +68,7 @@ public class Reflect {
                    e.printStackTrace();
             }
         }
+
     }
 
     public static void printConstructors(Class<?> classID) {
