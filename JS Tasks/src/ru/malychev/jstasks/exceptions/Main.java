@@ -8,6 +8,10 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) {
+        String accountOrExit;
+        int account;
+        String pinStr;
+        int pin;
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -23,13 +27,20 @@ public class Main {
         do {
             try {
                 System.out.print("Введите номер счета: ");
-                String accountOrExit = reader.readLine();
+                accountOrExit = reader.readLine();
                 if (accountOrExit.equals("exit")) break;
-                Integer account = accountOrExit.isEmpty() ? 0 : Integer.parseInt(accountOrExit);
+                account = accountOrExit.isEmpty() ? 0 : Integer.parseInt(accountOrExit);
                 System.out.print("Введите PIN-код: ");
-                String pinStr = reader.readLine();
-                Integer pin = pinStr.isEmpty() ? 0 : Integer.parseInt(pinStr);
-                bankomat.checkClient(account, new NumberPIN(pin));
+                pinStr = reader.readLine();
+                pin = pinStr.isEmpty() ? 0 : Integer.parseInt(pinStr);
+                if (bankomat.checkClient(account, new NumberPIN(pin))) {
+                    System.out.println("Меню клиента:");
+                    System.out.println("1. Проверить баланс.");
+                    System.out.println("2. Снять наличные.");
+                    System.out.println("3. Положить средства на счет.");
+                    System.out.println("4. Закончить сеанс.");
+                    System.out.println("Введите номер пункта меню: ");
+                }
             } catch (IOException e) {
                 System.out.println("\n=================================================================");
                 System.out.println("Банкомат неисправен.\nВам следует обратиться к другому Банкомату.");

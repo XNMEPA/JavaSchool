@@ -3,6 +3,7 @@ package ru.malychev.jstasks.exceptions.bankexceptions;
 public class AccountIsLockedException extends Exception {
 
     public AccountIsLockedException(long seconds) {
-        super("\nСчет заблокирован.\nРазблокировка произойдет через " + seconds + " сек.");
+        System.out.println("\n=================================================================");
+        System.out.println("Счет заблокирован.\nРазблокировка произойдет через " + seconds + " сек.");
     }
 }

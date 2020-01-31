@@ -22,6 +22,7 @@ public class KeyboardPINValidator extends PINValidator<Integer> {
             throw new IncorrectPINException(maxQuantityEnterPIN - countEnterPIN);
         } else {
             endTimeLock.setTime(new Date().getTime() + timeLock);
+            System.out.println("Счет заблокирован.\nРазблокировка произойдет через " + timeLock / 1000 + " секунд.");
             countEnterPIN = 0;
             return false;
         }

@@ -3,6 +3,9 @@ package ru.malychev.jstasks.exceptions.bankexceptions;
 public class IncorrectPINException extends Exception {
 
     public IncorrectPINException(int attempts) {
-        super("\nВведен некорректный PIN.\nОсталось " + (attempts == 2 ? "две попытки." : "одна попытка."));
+        System.out.println("=================================================================");
+        System.out.println("Введен некорректный PIN.");
+        System.out.println((attempts == 1 ? "Осталась одна попытка." : "Осталось две попытки."));
+        System.out.println("=================================================================");
     }
 }
