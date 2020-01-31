@@ -1,4 +1,4 @@
-package ru.malychev.jstasks.serialzation;
+package ru.malychev.jstasks.serialization;
 
 import java.io.Serializable;
 

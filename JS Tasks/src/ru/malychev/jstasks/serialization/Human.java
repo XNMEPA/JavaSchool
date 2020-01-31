@@ -1,4 +1,4 @@
-package ru.malychev.jstasks.serialzation;
+package ru.malychev.jstasks.serialization;
 
 /**
  * Created by 7 on 31.01.2020.
