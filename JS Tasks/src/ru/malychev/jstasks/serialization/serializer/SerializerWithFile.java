@@ -10,19 +10,17 @@ public class SerializerWithFile implements Serializer {
 
     @Override
     public void serialize(Object o, String fileName) throws IOException {
-        try (FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-             ObjectOutputStream outFile  = new ObjectOutputStream(fileOutputStream))
-        {
-            outFile.writeObject(o);
-        }
+        ObjectOutputStream outFile  = new ObjectOutputStream(new FileOutputStream(fileName));
+
+        outFile.writeObject(o);
+
     }
 
     @Override
     public Object deserialize(String fileName) throws IOException, ClassNotFoundException {
-        try (FileInputStream fileInputStream = new FileInputStream(fileName);
-             ObjectInputStream inFile = new ObjectInputStream(fileInputStream))
-        {
-            return inFile.readObject();
-        }
+        ObjectInputStream inFile = new ObjectInputStream(new FileInputStream(fileName));
+
+        return inFile.readObject();
+
     }
 }

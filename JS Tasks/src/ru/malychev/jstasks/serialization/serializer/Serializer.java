@@ -2,21 +2,20 @@ package ru.malychev.jstasks.serialization.serializer;
 
 import java.io.IOException;
 
-/**
- * Created by 7 on 31.01.2020.
- */
 
 /**
+ * Created by 7 on 31.01.2020.
  * {@link Serializer} Интерфейс сериализатора
  */
+
 public interface Serializer {
 
     /**
      *
      * @param o Объект сериализации для записи в поток
-     * @param outPutStream Входной поток сериализуемых объектов
+     * @param outputStream Входной поток сериализуемых объектов
      */
-    void serialize(Object o, String outPutStream) throws IOException;
+    void serialize(Object o, String outputStream) throws IOException;
 
     /**
      *
