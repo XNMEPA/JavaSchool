@@ -11,7 +11,6 @@ import java.util.List;
  *  Created by "XNMEPA" on 01.02.2020.
  *  Сервисный класс Исполнений Желаний {@link WishService}
  */
-
 public class WishService implements Service {
     /**
      * @param arguments произвольное количество суммируемых чисел
@@ -35,6 +34,7 @@ public class WishService implements Service {
      * @return  Result объект с результатами вычислений
      */
     @Override
+    @Cache(cacheType = CacheType.FILE, identityBy = {String.class, double.class})
     public Result calc(Result result) throws NoSuchMethodException {
         double volume;
         switch (result.getNameFunction()) {

@@ -57,4 +57,9 @@ public class Result implements Serializable {
     public int hashCode() {
         return Objects.hash(nameFunction, argument, result);
     }
+
+    @Override
+    public String toString() {
+        return nameFunction + "(" + argument + ")" + " = " + result + " : " + timeStamp;
+    }
 }

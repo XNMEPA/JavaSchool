@@ -42,8 +42,3 @@ public @interface Cache {
      */
     Class[] identityBy() default {};
 }
-
-/**
- * Определение возможных типов кеширования результатов {@link CacheType}
- */
-enum CacheType {IN_MEMORY, FILE}

@@ -7,7 +7,6 @@ import java.util.List;
  *  Created by "XNMEPA" on 01.02.2020.
  *  Сервисный интерфейс для сервиса Исполнения Желаний {@link Service}
  */
-
 public interface Service {
     /**
      *

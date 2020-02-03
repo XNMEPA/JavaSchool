@@ -23,11 +23,11 @@ public class Storage {
         this.cacheFile = cacheFile;
         Result result;
         try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(cacheFile))) {
-            while ((result = (Result) reader.readObject()) != null) this.list.add(result);
+            list = (List<Result>) reader.readObject();
         } catch (FileNotFoundException e) {
-            System.out.println("Ресурс с кешированными данными еще не был создан.");
+            System.out.println("Ресурс для кеширования данных еще не был создан.");
             try {
-                if (cacheFile.createNewFile()) System.out.println("Создан кеш-файл: " + cacheFile.getName());
+                if (cacheFile.createNewFile()) System.out.println("Создан кеш-файл: " + cacheFile.getName() + "\n");
                 else System.out.println("Кеш-файл " + cacheFile.getName() + " создать не удалось.");
             } catch (IOException ex) {
                 System.err.println("Неожиданная ошибка системы ввода/вывода!");
@@ -55,15 +55,6 @@ public class Storage {
 
     public void push(Result result) {
         this.list.add(result);
-        if (cacheFile != null)
-            try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(cacheFile))) {
-                writer.writeObject(result);
-            } catch (FileNotFoundException e) {
-                System.err.println("Непредвиденная ошибка.\nУтерян кеш-файл - " + cacheFile.getName());
-            } catch (IOException e) {
-                System.err.println("Неожиданная ошибка системы ввода/вывода!");
-                e.printStackTrace();
-            }
     }
 
     public Result get(Result res) {
@@ -73,4 +64,14 @@ public class Storage {
         return null;
     }
 
+    public boolean safeSave() {
+        try (ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream(cacheFile))) {
+            writer.writeObject(this.list);
+            return true;
+        } catch (IOException e) {
+            System.err.println("Неожиданная ошибка системы ввода/вывода!");
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
