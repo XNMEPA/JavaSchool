@@ -24,7 +24,7 @@ public @interface Cache {
      *
      * @return имя кеш-файла по умолчанию
      */
-    String fileName() default "./DataCache.obj";
+    String fileName() default "DataCache.obj";
 
     /**
      * @return Требуется ли сжимать кеш-файл
