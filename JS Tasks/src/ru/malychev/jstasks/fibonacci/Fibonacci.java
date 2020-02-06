@@ -12,13 +12,15 @@ public class Fibonacci {
 //            System.out.println("a = " + a);
 //            c = a; a = b ; b += c;
 
-        fibonacci(0, 1, (i, a) -> {
-            long c, b = a;
+        fibonacci(50, 1, (i, a) -> {
             System.out.println("Fib[ " + i + " ] = " + a);
-            c = a; a = b; b +=c;
-        });
+         });
     }
-    public static void fibonacci(int i, long a, BiConsumer<Integer, Long> show) {
-        show.accept(i, a);
+    public static void fibonacci(int n, long a, BiConsumer<Integer, Long> show) {
+        long c, b = a;
+        for (int i = 0; i < n ; i++) {
+            show.accept(i, a);
+            c = a; a = b; b +=c;
+        }
     }
 }
