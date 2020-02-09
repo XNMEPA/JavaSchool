@@ -5,6 +5,7 @@ import java.util.*;
 
 public class CollectionTask {
     public static void main(String[] args) {
+
         try (BufferedReader fileIn = new BufferedReader(new InputStreamReader(new FileInputStream (
                 "/home/gendalf/IdeaProjects/JavaSchool/JS Tasks/src/ru/malychev/jstasks/collections/Text.txt")))) {
             List<String> list = new ArrayList<>();
