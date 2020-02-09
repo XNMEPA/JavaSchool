@@ -2,6 +2,7 @@ package ru.malychev.jstasks.marry;
 
 public class Marry {
     public static void main(String[] args) {
+
         final boolean MAN = true;
         final boolean WOMAN = false;
 
