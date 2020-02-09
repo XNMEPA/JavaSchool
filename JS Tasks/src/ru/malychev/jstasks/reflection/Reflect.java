@@ -10,6 +10,7 @@ public class Reflect {
 //===========================================
     public static final String HELLO = "Hello";
 //===========================================
+
     public static void main(String[] args) {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
