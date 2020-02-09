@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class GenericTask {
     public static void main(String[] args) {
+
         //Значения для загрузки
         int[] faceValue = {1, 2, 5, 10, 50, 100, 200, 500, 1000, 2000, 5000};
         int[] coins = {1, 2, 100, 2, 5, 1, 200, 1, 10, 500, 10, 100, 10, 5, 1000, 50, 5};
