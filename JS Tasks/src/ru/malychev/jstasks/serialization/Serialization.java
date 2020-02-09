@@ -9,6 +9,7 @@ import java.io.IOException;
  * Created by 7 on 31.01.2020.
  */
 public class Serialization {
+
     public static final String FILENAME = "/home/gendalf/Загрузки/students.obj";
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
