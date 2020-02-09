@@ -3,11 +3,12 @@ package ru.malychev.jstasks.fibonacci;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class Fibonacci {
     static int maxNumber = 50;
-    static List<Long> list = new ArrayList<>(maxNumber);
+    static List<Long[]> list = new ArrayList<>(maxNumber);
 
     static BiConsumer<Integer, Long> printMember = (index, memberFibonacci) -> System.out.println("Fib[ " + index + " ] = " + memberFibonacci);
 
@@ -17,39 +18,49 @@ public class Fibonacci {
         fibonacci(++index, b, a + b, printMember);
     }
 
-    public static void fibonacci(long a, BiConsumer<Integer, Long> show) {
+    public static void fibonacci(long a, Consumer<String> show) {
         long c, b = a;
+        String str;
         for (int i = 1; i <= maxNumber ; i++) {
-            show.accept(i, a);
+            str= "Feb[" + i + "] = " + a;
+            show.accept(str);
             c = a; a = b; b +=c;
         }
     }
 
-    public static long fibonacci (long a, long b, int i) {
-        if (i < maxNumber)
-            list.add(fibonacci(b, a+b, ++i));
+    public static long fibonacci (long a, long b, long i) {
+        if (i <= maxNumber) {
+            Long[] pair = new Long[2];
+            pair[0] = i;
+            pair[1] = fibonacci(b, a+b, ++i);
+            list.add(pair);
+        }
+
         return a;
     }
 
     public static void main(String[] args) {
 
-/*        for (long a = 0, b = 1, c, i = 1; i <= maxNumber; i++) {
+        System.out.println("Простой цикл.");
+        for (long a = 0, b = 1, c, i = 1; i <= maxNumber; i++) {
             System.out.println("Fib[ " + i + " ] = " + b);
             c = a; a = b; b += c;
         }
-*/
 
-//        fibonacci(1, 0, 1, printMember);
+        System.out.println("\nПередача в метод переменную с лямбда-выражением.");
+        fibonacci(1, 0, 1, printMember);
 
-/*        fibonacci(0, 1, 1);
+        System.out.println("\nПоток по списку.");
+       fibonacci(0, 1, 1);
         list.stream()
-            .sorted()
+            .sorted((a, b) ->  (int) (a[0] - b[0]))
+            .map(f -> "Feb[" + f[0] + "] = " + f[1])
             .forEach(System.out::println);
-*/
-/*        fibonacci(50, 1, (i, a) -> {
-            System.out.println("Fib[ " + i + " ] = " + a);
-         });
-*/
+
+        System.out.println("\nТак себе вариант. Передается ссылка на метод.");
+        fibonacci(1, System.out::println);
+
+        System.out.println("\nГенарация чисел Фибоначчи в потоке.");
         Stream.iterate(
                 new Long[] { 0L, 1L, 1L },
                 f -> new Long[] { f[1], f[0] + f[1], ++f[2]})
