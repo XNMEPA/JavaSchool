@@ -62,8 +62,8 @@ public class Fibonacci {
 
         System.out.println("\nГенарация чисел Фибоначчи в потоке.");
         Stream.iterate(
-                new Long[] { 0L, 1L, 1L },
-                f -> new Long[] { f[1], f[0] + f[1], ++f[2]})
+                new long[] { 0L, 1L, 1L },
+                f -> new long[] { f[1], f[0] + f[1], ++f[2]})
                 .map(f -> "Fib[" + f[2] + "] = " + f[1])
                 .limit(maxNumber)
                 .forEach(System.out::println);
