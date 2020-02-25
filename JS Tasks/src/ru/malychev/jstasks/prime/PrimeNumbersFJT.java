@@ -27,20 +27,17 @@ public class PrimeNumbersFJT extends RecursiveAction {
 
 	@Override
 	protected void compute() {
+		for (; indexNextPrime < primeNumbers.length; indexNextPrime++)
+			if (primeNumbers[indexNextPrime]) break;
+
 		int primeNumber = indexNextPrime + 2;
+
 		if (primeNumber * primeNumber < primeNumbers.length) {
-
-			for (; indexNextPrime < primeNumbers.length; indexNextPrime++) {
-				if (primeNumbers[indexNextPrime]) break;
-			}
-
-			primeNumber = indexNextPrime + 2;
 
 			invokeAll(new PrimeNumbersFJT(++indexNextPrime));
 
-			for (int i = primeNumber * primeNumber - 2; i < primeNumbers.length; i += primeNumber) {
+			for (int i = primeNumber * primeNumber - 2; i < primeNumbers.length; i += primeNumber)
 				primeNumbers[i] = false;
-			}
 		}
 	}
 }
