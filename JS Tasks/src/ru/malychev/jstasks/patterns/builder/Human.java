@@ -9,7 +9,7 @@ public class Human implements Cloneable {
 	private int height = 0;
 	private int weight = 0;
 
-	public Human() { }
+	protected Human() { }
 
 	@Override
 	public Human clone() {
@@ -24,7 +24,6 @@ public class Human implements Cloneable {
 
 		return clone;
 	}
-
 
 	@Override
 	public String toString() {
