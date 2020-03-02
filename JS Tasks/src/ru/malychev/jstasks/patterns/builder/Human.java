@@ -9,7 +9,7 @@ public class Human implements Cloneable {
 	private int height = 0;
 	private int weight = 0;
 
-	private Human() { }
+	public Human() { }
 
 	@Override
 	public Human clone() {
@@ -115,17 +115,4 @@ public enum Sex {Мужской, Женский}
 		System.out.println("Клон человека:\n" + cloneVasiliy);
 
 	}
-}
-
-public class StrongManClone extends Human {
-	Human strongManClone = new Human.HumanBuilder()
-			.setFamily("Безродный")
-			.setName("Клон")
-			.setSurname("")
-			.setSex(Sex.Мужской)
-			.setAge(30)
-			.setHeight(194)
-			.setWeight(86)
-			.getHuman();
-
 }
