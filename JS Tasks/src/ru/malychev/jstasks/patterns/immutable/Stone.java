@@ -10,4 +10,10 @@ public class Stone {
 	public String getStone() {
 		return name;
 	}
+
+	@Override
+	public String toString() {
+		return "Это " + name + ".";
+	}
+
 }

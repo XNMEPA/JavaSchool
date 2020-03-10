@@ -3,17 +3,17 @@ package ru.malychev.jstasks.patterns.singleton;
 import ru.malychev.jstasks.patterns.builder.Human;
 import ru.malychev.jstasks.patterns.immutable.Stone;
 
-public class Superman extends Human {
-//	private Human onlyMan;
+public class Superman {
+	private Human onlyMan;
 	private final Stone fearOfSuperman = new Stone("Криптон");
 	private static volatile Superman superman;
 
 	private Superman() {
-		new Human.HumanBuilder()
+		onlyMan = new Human.HumanBuilder()
 			.setFamily("Кларк")
 			.setName("Кент")
 			.setSurname("Джерриевич")
-			.setSex(Sex.Мужской)
+			.setSex(Human.Sex.Мужской)
 			.setAge(30)
 			.setHeight(194)
 			.setWeight(86)
@@ -33,7 +33,12 @@ public class Superman extends Human {
 		return localSuperman;
 	}
 
-	public Stone getFearOfSuperman() {
+	@Override
+	public String toString() {
+		return onlyMan.toString();
+	}
+
+		public Stone getFearOfSuperman() {
 		return fearOfSuperman;
 	}
 

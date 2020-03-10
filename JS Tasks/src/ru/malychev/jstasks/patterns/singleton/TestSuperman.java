@@ -11,7 +11,7 @@ public class TestSuperman {
 		System.out.println("Чего боится супермен? " + kentClark.getFearOfSuperman());
 
 		Superman secondKentClark = Superman.getSuperman();
-		System.out.println("Одна ли личность скрывается под масками kentClark и secondKentClark");
+		System.out.println("Одна ли личность скрывается под масками kentClark и secondKentClark?");
 		if (kentClark == secondKentClark) System.out.println("Да. Это одна личность.");
 		else System.out.println("Нет. Случилось страшное. Суперман отдуплился.");
 	}
